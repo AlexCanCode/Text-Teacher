@@ -1,13 +1,12 @@
-<!DOCTYPE html> <!-- MAKE A DIV ON TOP OF THE OTHER ONES TO PUSH THE OTHERS DOWN and drecrease height accordingly --> 
+<!DOCTYPE html> 
 <html>
 <head>
 	<title>A Simple Learning Game</title>
 	<meta charset="utf-8">
 </head>
 <body>
-	<div id="container">
 		<div id="text-display">
-			<p> C:\Users\Gilgamesh> testing...</p>
+			<p> C:\Users\Gilgamesh> testing...</p> <!-- make just "<" for small viewpoints -->
 		</div>
 		<div id="input-container">
 			<p>C:\Users\Gilgamesh> testing...</p>
@@ -15,7 +14,6 @@
 				<input id="text-entry">
 			</form> 
 		</div>
-	</div>
 
 </body>
 	<style type="text/css">
@@ -28,20 +26,6 @@
 		html, body {
 			height: 100%;
 		}
-
-		#container {
-			position: relative;
-			height: 100%;
-			border: dashed 1px red;
-			overflow: auto;
-		}
-
-		#container div{
-			position: absolute;
-			margin-bottom: 0;
-			background: red;
-		}
-
 
 		#text-display {
 			
@@ -76,6 +60,22 @@
 
 	<script type="text/javascript">
 
+		function windowHeight(){
+			if(typeof window.innerHeight != "undefined"){
+				return window.innerHeight;
+			}
+			else {
+				return false;
+			}
+		}
+
+		let vHeight = windowHeight(); 
+
+		window.addEventListener("resize", function(){
+			vHeight = windowHeight();
+		});
+
+		//NEXT: Write function that calculates how many paragraphs can fit on the page
 
 	</script>
 
