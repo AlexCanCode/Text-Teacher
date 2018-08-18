@@ -1,18 +1,19 @@
-<!DOCTYPE html>
+<!DOCTYPE html> <!-- MAKE A DIV ON TOP OF THE OTHER ONES TO PUSH THE OTHERS DOWN and drecrease height accordingly --> 
 <html>
 <head>
 	<title>A Simple Learning Game</title>
 	<meta charset="utf-8">
 </head>
 <body>
-
-	<div id="text-display">
-		<p> C:\Users\Gilgamesh> testing...</p>
+	<div id="container">
+		<div id="text-display">
+			<p> C:\Users\Gilgamesh> testing...</p>
+		</div>
 		<div id="input-container">
 			<p>C:\Users\Gilgamesh> testing...</p>
-		
-			<input id="text-entry">
-			</input>
+			<form id="text-entry-form">
+				<input id="text-entry">
+			</form> 
 		</div>
 	</div>
 
@@ -21,21 +22,32 @@
 		* {
 			margin: 0 auto;
 			padding: 0;
+			background: rgb(52,61,70);
 		}
 
 		html, body {
 			height: 100%;
 		}
 
-		#text-display {
-			background: rgb(52,61,70);
+		#container {
+			position: relative;
 			height: 100%;
-			width: 100%;
+			border: dashed 1px red;
+			overflow: auto;
+		}
 
+		#container div{
+			position: absolute;
+			margin-bottom: 0;
+			background: red;
+		}
+
+
+		#text-display {
+			
 			}
 
 		#text-entry{
-			background: rgb(52,61,70);
 			width: auto;
 			border: none;
 		}
@@ -61,5 +73,10 @@
 		}
 
 	</style>
+
+	<script type="text/javascript">
+
+
+	</script>
 
 </html>
