@@ -6,17 +6,17 @@
 	<link rel="shortcut icon" href="img/shortcut-icon.ico">
 </head>
 <body>
-		<div id="text-display">
-			
-			<p> T:\></p> <!-- make just "<" for small viewpoints -->
-		</div>
-		<div id="input-container">
-			<p>T:\></p>
-			<form id="text-entry-form">
-				<input id="text-entry">
-			</form> 
-		</div>
+	<div id="text-display">
+		
+	</div>
+	<div id="input-container">
+		<p>T:\></p>
+		<form id="text-entry-form" autocomplete="off">
+			<input id="text-entry">
+		</form> 
+	</div>
 
+	<div id="measure"></div> <!-- Used to measure the amount of pixels in an em in order to determine height of paragraphs to use to fill vertical space and push input to bottom -->
 </body>
 	<style type="text/css">
 		* {
@@ -30,7 +30,7 @@
 		}
 
 		#text-display {
-			
+			padding-left: 20px;
 			}
 
 		#text-entry{
@@ -40,7 +40,8 @@
 		}
 
 		#input-container {
-		
+			padding: 20px;
+			border: 2px solid grey;
 		}
 
 		#text-entry:focus {
@@ -58,6 +59,11 @@
 		p {
 			color: rgb(0 128 0); /* FONT COLOR */
 			font-family: courier;
+			height: 1em; /*Check for unintended side effects of this */
+		}
+
+		#measure {
+			width: 1000em;
 		}
 
 	</style>
@@ -71,15 +77,57 @@
 			else {
 				return false;
 			}
-		}
+		};
+
+		function measureEm(){
+			const measure = document.getElementById("measure");
+			return measure.offsetWidth / 1000; 
+		};
 
 		let vHeight = windowHeight(); 
+		let emPixels = measureEm();
+		let numLines = Math.floor((vHeight - 92) / (emPixels * 2));
 
 		window.addEventListener("resize", function(){
 			vHeight = windowHeight();
+			emPixels = measureEm();
 		});
 
-		//NEXT: Write function that calculates how many paragraphs can fit on the page
+		function addLines(){
+			const container = document.getElementById("text-display");
+			let pNode = document.createElement("p");
+			const bNode = document.createElement("br");
+			const preamble = document.createTextNode("T:");
+			container.appendChild(pNode);
+			container.appendChild(bNode);
+		};
+
+		function iterateLines(){
+			const bNode = document.createElement("br");
+			document.getElementById("text-display").appendChild(bNode);
+
+			for(i = 0; i < (numLines - 1); i++){
+				addLines();
+			};
+		};
+
+		iterateLines();
+
+		//NEXT: Funciton to take input - store as string or text array and move up accordingly
+
+			//  1. add all elements on page to fit properyl
+
+			//  2. on resize, delete all elements and readd per new window size
+
+			//  3. For each entered text for user, add to bottom-most paragraph and delete the top most paragraph 
+
+		// Take input as string or text array 
+
+		// tinker with design,try out new font colors (within the spacegrey pallette, as terry wanted a more off white)
+
+		//send a prototype and ask what should be different (reference email and make sure you have followed the requirements)
+
+		//make input box larger
 
 
 	</script>
