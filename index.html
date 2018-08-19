@@ -11,8 +11,8 @@
 	</div>
 	<div id="input-container">
 		<p>T:\></p>
-		<form id="text-entry-form" autocomplete="off">
-			<input id="text-entry">
+		<form id="text-entry-form" autocomplete="off" onsubmit="return false">
+			<input id="text-entry" type="text" onkeydown="capture()">
 		</form> 
 	</div>
 
@@ -34,13 +34,13 @@
 			}
 
 		#text-entry{
-			width: auto;
 			border: none;
 			width: 50%;
+			height: 50px;
 		}
 
 		#input-container {
-			padding: 20px;
+			padding: 10px 20px 10px 20px;
 			border: 2px solid grey;
 		}
 
@@ -51,7 +51,7 @@
 
 		#input-container p {
 			float: left;
-			padding: 0;
+			padding-top: 15px;
 			margin: 0;
 		}
 
@@ -70,6 +70,12 @@
 
 	<script type="text/javascript">
 
+	//Variables
+		let vHeight = windowHeight(); 
+		let emPixels = measureEm();
+		let numLines = Math.floor((vHeight - 92) / (emPixels * 2));
+		let userInput;
+
 		function windowHeight(){
 			if(typeof window.innerHeight != "undefined"){
 				return window.innerHeight;
@@ -84,10 +90,6 @@
 			return measure.offsetWidth / 1000; 
 		};
 
-		let vHeight = windowHeight(); 
-		let emPixels = measureEm();
-		let numLines = Math.floor((vHeight - 92) / (emPixels * 2));
-
 		window.addEventListener("resize", function(){
 			vHeight = windowHeight();
 			emPixels = measureEm();
@@ -97,7 +99,6 @@
 			const container = document.getElementById("text-display");
 			let pNode = document.createElement("p");
 			const bNode = document.createElement("br");
-			const preamble = document.createTextNode("T:");
 			container.appendChild(pNode);
 			container.appendChild(bNode);
 		};
@@ -110,6 +111,16 @@
 				addLines();
 			};
 		};
+
+		function capture(ele){
+			if(event.key === "Enter"){
+			userInput = document.getElementById("text-entry").value.trim();
+		}
+	};
+
+		function userEntry(){
+				// get all children of text-display, erase top two, add new br and para with value of user input 
+		}
 
 		iterateLines();
 
