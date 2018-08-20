@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div id="text-display">
-		
+		<!--filled on load with paragraphs and breaks to push input line to bottom -->
 	</div>
 	<div id="input-container">
 		<p>T:\></p>
@@ -16,7 +16,7 @@
 		</form> 
 	</div>
 
-	<div id="measure"></div> <!-- Used to measure the amount of pixels in an em in order to determine height of paragraphs to use to fill vertical space and push input to bottom -->
+	<div id="measure"></div> <!-- Used to measure the # of pixels in an em to determine height of <p> to use to fill vertical space and push input to bottom -->
 </body>
 	<style type="text/css">
 		* {
@@ -54,7 +54,6 @@
 			padding-top: 15px;
 			margin: 0;
 		}
-
 
 		p {
 			color: rgb(192,197,206); /* FONT COLOR */
@@ -109,7 +108,7 @@
 			container.appendChild(bNode);
 		};
 
-		function iterateLines(){
+		function iterateLines(){  //need to adjust to run on resize 
 			const bNode = document.createElement("br");
 			document.getElementById("text-display").appendChild(bNode);
 
@@ -118,7 +117,7 @@
 			};
 		};
 
-		function capture(ele){
+		function capture(){
 			if(event.key === "Enter"){
 			userInput = document.getElementById("text-entry").value.trim();
 
@@ -127,6 +126,7 @@
 		}
 	};
 
+		//Main function taking user entry, inserting at bottom of text-display and pushing paragraphs up 
 		function userEntry(){
 			const textDisplayChildren = document.getElementById("text-display").children;
 			textDisplayChildren[0].remove();
@@ -152,13 +152,6 @@
 		};
 
 		iterateLines();
-
-		//NEXT: 
-
-		//send a prototype and ask what should be different (reference email and make sure you have followed the requirements)
-
-
-
 
 	</script>
 
