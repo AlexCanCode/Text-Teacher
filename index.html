@@ -12,7 +12,7 @@
 		<div id="input-container">
 			<p>T:\></p>
 			<form id="text-entry-form" autocomplete="off" onsubmit="return false">
-				<input id="text-entry" type="text" onkeydown="capture(event)">
+				<input id="text-entry" type="text" onkeydown="capture(event)" autofocus>
 			</form> 
 		</div>
 
@@ -88,7 +88,7 @@
 		let userInput;
 		let firstEntry = true;
 		
-		const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+		const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1; //browser detection, unfortunately, because firefox causes userEntry box to jump up if not detected
 
 		function fireFox(boolean){
 			if(boolean){
@@ -115,6 +115,35 @@
 		window.addEventListener("resize", function(){
 			vHeight = windowHeight();
 			emPixels = measureEm();
+			numLines = Math.floor((vHeight - 92) / (emPixels * 2));
+
+			if(document.body.scrollHeight > vHeight){
+				while(document.body.scrollHeight > vHeight){
+					removeTextDisplayFirstChild();
+				}
+			}
+
+			else {
+				let lineNumber = document.getElementById("text-display").childElementCount;
+				while(lineNumber < ((numLines * 2) - 1)){
+					const container = document.getElementById("text-display");
+					const firstNode = container.firstChild;
+					let pNode = document.createElement("p");
+					const bNode = document.createElement("br");
+					container.insertBefore(pNode, firstNode);
+					container.insertBefore(bNode, firstNode);
+
+
+					lineNumber = document.getElementById("text-display").childElementCount;
+				}
+			}
+
+			if(isFirefox){
+				while(document.body.scrollHeight > vHeight){
+					removeTextDisplayFirstChild();
+				}
+			}
+		
 		});
 
 		function addLines(){
@@ -133,7 +162,7 @@
 
 			while(document.body.scrollHeight > vHeight){
 				removeTextDisplayFirstChild();
-			}
+			};
 
 		const bNode = document.createElement("br");
 		document.getElementById("text-display").appendChild(bNode);
