@@ -90,42 +90,53 @@
 		
 		const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1; //browser detection, unfortunately, because firefox causes userEntry box to jump up if not detected
 
-		function fireFox(boolean){
-			if(boolean){
+		function fireFox(boolean)
+		{
+			if(boolean)
+			{
 				firstEntry = false;
 			}
 		};
 
 		fireFox(isFirefox);
 
-		function windowHeight(){
-			if(typeof window.innerHeight != "undefined"){
+		function windowHeight()
+		{
+			if(typeof window.innerHeight != "undefined")
+			{
 				return window.innerHeight;
 			}
-			else {
+			else
+			{
 				return false;
 			}
 		};
 
-		function measureEm(){
+		function measureEm()
+		{
 			const measure = document.getElementById("measure");
 			return measure.offsetWidth / 1000; 
 		};
 
-		window.addEventListener("resize", function(){
+		window.addEventListener("resize", function()
+		{
 			vHeight = windowHeight();
 			emPixels = measureEm();
 			numLines = Math.floor((vHeight - 92) / (emPixels * 2));
 
-			if(document.body.scrollHeight > vHeight){
-				while(document.body.scrollHeight > vHeight){
+			if(document.body.scrollHeight > vHeight)
+			{
+				while(document.body.scrollHeight > vHeight)
+				{
 					removeTextDisplayFirstChild();
 				}
 			}
 
-			else {
+			else 
+			{
 				let lineNumber = document.getElementById("text-display").childElementCount;
-				while(lineNumber < ((numLines * 2) - 1)){
+				while(lineNumber < ((numLines * 2) - 1))
+				{
 					const container = document.getElementById("text-display");
 					const firstNode = container.firstChild;
 					let pNode = document.createElement("p");
@@ -138,15 +149,18 @@
 				}
 			}
 
-			if(isFirefox){
-				while(document.body.scrollHeight > vHeight){
+			if(isFirefox)
+			{
+				while(document.body.scrollHeight > vHeight)
+				{
 					removeTextDisplayFirstChild();
 				}
 			}
 		
 		});
 
-		function addLines(){
+		function addLines()
+		{
 			const container = document.getElementById("text-display");
 			let pNode = document.createElement("p");
 			const bNode = document.createElement("br");
@@ -154,13 +168,16 @@
 			container.appendChild(bNode);
 		};
 
-		function iterateLines(){  //need to adjust to run on resize 
+		function iterateLines()
+		{  //need to adjust to run on resize 
 
-			for(i = 0; i < (numLines - 1); i++){
+			for(i = 0; i < (numLines - 1); i++)
+			{
 				addLines();
 			};
 
-			while(document.body.scrollHeight > vHeight){
+			while(document.body.scrollHeight > vHeight)
+			{
 				removeTextDisplayFirstChild();
 			};
 
@@ -169,15 +186,18 @@
 
 		};
 
-		function removeTextDisplayFirstChild(){
+		function removeTextDisplayFirstChild()
+		{
 			let container = document.getElementById("text-display");
 			let firstC = container.firstChild;
 
 			container.removeChild(firstC);
 		}
 
-		function capture(event){
-			if(event.key === "Enter"){
+		function capture(event)
+		{
+			if(event.key === "Enter")
+			{
 			userInput = document.getElementById("text-entry").value.trim();
 
 			userEntry();
@@ -186,7 +206,8 @@
 	};
 
 		//Main function taking user entry, inserting at bottom of text-display and pushing paragraphs up 
-		function userEntry(){
+		function userEntry()
+		{
 
 			if(firstEntry)
 			{
@@ -212,7 +233,8 @@
 				 
 		}
 
-		function insertAfter(referenceNode, newNode){
+		function insertAfter(referenceNode, newNode)
+		{
 			referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 		};
 
