@@ -6,16 +6,18 @@
 	<link rel="shortcut icon" href="img/shortcut-icon.ico">
 </head>
 <body>
-	<div id="text-display">
-	</div>
-	<div id="input-container">
-		<p>T:\></p>
-		<form id="text-entry-form" autocomplete="off" onsubmit="return false">
-			<input id="text-entry" type="text" onkeydown="capture(event)">
-		</form> 
-	</div>
+	<div id="container">
+		<div id="text-display">
+		</div>
+		<div id="input-container">
+			<p>T:\></p>
+			<form id="text-entry-form" autocomplete="off" onsubmit="return false">
+				<input id="text-entry" type="text" onkeydown="capture(event)">
+			</form> 
+		</div>
 
-	<div id="measure"></div> <!-- Used to measure the # of pixels in an em to determine height of <p> to use to fill vertical space and push input to bottom -->
+		<div id="measure"></div> <!-- Used to measure the # of pixels in an em to determine height of <p> to use to fill vertical space and push input to bottom -->
+	</div>
 
 	<style type="text/css">
 		* {
@@ -26,6 +28,7 @@
 
 		html, body {
 			height: 100%;
+			overflow: hidden;
 		}
 
 		#text-display {
@@ -40,7 +43,7 @@
 
 		#input-container {
 			padding: 10px 20px 10px 20px;
-			border: 2px solid grey;
+			border: 2px dotted grey;
 		}
 
 		#text-entry:focus {
@@ -58,6 +61,10 @@
 			color: rgb(192,197,206); /* FONT COLOR */
 			font-family: courier;
 			height: 1em; /*Check for unintended side effects of this */
+		}
+
+		br {
+			height: 1em;
 		}
 
 		input[type="text"] {
@@ -79,7 +86,17 @@
 		let emPixels = measureEm();
 		let numLines = Math.floor((vHeight - 92) / (emPixels * 2));
 		let userInput;
-		let firstTime = true;
+		let firstEntry = true;
+		
+		const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
+		function fireFox(boolean){
+			if(boolean){
+				firstEntry = false;
+			}
+		};
+
+		fireFox(isFirefox);
 
 		function windowHeight(){
 			if(typeof window.innerHeight != "undefined"){
@@ -109,13 +126,26 @@
 		};
 
 		function iterateLines(){  //need to adjust to run on resize 
-			const bNode = document.createElement("br");
-			document.getElementById("text-display").appendChild(bNode);
 
 			for(i = 0; i < (numLines - 1); i++){
 				addLines();
 			};
+
+			while(document.body.scrollHeight > vHeight){
+				removeTextDisplayFirstChild();
+			}
+
+		const bNode = document.createElement("br");
+		document.getElementById("text-display").appendChild(bNode);
+
 		};
+
+		function removeTextDisplayFirstChild(){
+			let container = document.getElementById("text-display");
+			let firstC = container.firstChild;
+
+			container.removeChild(firstC);
+		}
 
 		function capture(event){
 			if(event.key === "Enter"){
@@ -128,22 +158,15 @@
 
 		//Main function taking user entry, inserting at bottom of text-display and pushing paragraphs up 
 		function userEntry(){
-			let firstC = document.getElementById("text-display").firstChild;
 
-			if(firstTime)
+			if(firstEntry)
 			{
-				document.getElementById("text-display").removeChild(firstC);
-				firstTime = false;
+				removeTextDisplayFirstChild();
+				firstEntry = false;
 			}
 
-			firstC = document.getElementById("text-display").firstChild;
-			document.getElementById("text-display").removeChild(firstC);
-			firstC = document.getElementById("text-display").firstChild;
-			document.getElementById("text-display").removeChild(firstC);
-
-			/* const textDisplayChildren = document.getElementById("text-display").children;
-			textDisplayChildren[0].remove();
-			textDisplayChildren[0].remove(); */
+			removeTextDisplayFirstChild();
+			removeTextDisplayFirstChild();
 
 			let lastNode = document.getElementById("text-display").lastChild;
 
