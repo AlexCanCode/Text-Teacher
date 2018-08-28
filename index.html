@@ -4,6 +4,7 @@
 	<title>A Simple Learning Game</title>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" href="img/shortcut-icon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 	<div id="container">
@@ -37,13 +38,15 @@
 
 		#text-entry{
 			border: none;
-			width: 50%;
+			width: 75%;
 			height: 50px;	
 		}
 
 		#input-container {
 			padding: 10px 20px 10px 20px;
-			border: 2px dotted grey;
+			border-style: dotted;
+			border-color: grey;
+			border-width: 2px;
 		}
 
 		#text-entry:focus {
@@ -60,21 +63,21 @@
 		p {
 			color: rgb(192,197,206); /* FONT COLOR */
 			font-family: courier;
-			height: 1em; /*Check for unintended side effects of this */
+			height: 1rem; /*Check for unintended side effects of this */
 		}
 
 		br {
-			height: 1em;
+			height: 1rem;
 		}
 
 		input[type="text"] {
 			color: rgb(192,197,206); /* FONT COLOR */
 			font-family: courier;
-			font-size: 1em;
+			font-size: 1rem;
 		}
 
 		#measure {
-			width: 1000em;
+			width: 1000rem;
 		}
 
 	</style>
